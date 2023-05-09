@@ -12,6 +12,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+// Routes
+const router = require('./routes/Router.js');
+
+app.use(router);
+
 
 
 app.listen(port, () => {
