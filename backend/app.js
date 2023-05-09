@@ -12,6 +12,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+
+//Solve Cors
+app.use(cors({ credentials: true, origin: 'http://localhost:3000'}));
+
+//Upload directory image
+app.use('/upload', express.static(path.join(__dirname, './uploads')));
+    
+//DB connection
+require('./config/db.js');
+
+
 // Routes
 const router = require('./routes/Router.js');
 
