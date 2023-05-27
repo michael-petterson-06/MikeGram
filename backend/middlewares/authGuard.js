@@ -4,8 +4,7 @@ const jwtSecret = process.env.JWT_SECRET;
 
 
 const authGuard = async (req, res, next ) => {
-
-    console.log('estou ak')
+    
     const authHeader = req.headers['authorization'];
     
     const token = authHeader && authHeader.split(' ')[1];
