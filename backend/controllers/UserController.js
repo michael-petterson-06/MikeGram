@@ -80,4 +80,10 @@ const getCurrentUser = async (req, res) => {
 }
 
 
-module.exports = { register, login, getCurrentUser };
+//Update an user
+const update = async (req, res) => {
+    res.send('Você conseguiur atualizar o Usuário');
+}
+
+
+module.exports = { register, login, getCurrentUser, update };
