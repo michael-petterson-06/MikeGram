@@ -28,7 +28,7 @@ const loginValidation = () => {
 }
 
 
-const userUpdateValidatiion = () => {
+const userUpdateValidation = () => {
    return [
       body('name').optional().isLength({min:3})
          .withMessage('O nome precisa de pelo menos 3 caracteres.'),
@@ -41,5 +41,5 @@ const userUpdateValidatiion = () => {
 module.exports = {
     userCreateValidation,
     loginValidation,
-    userUpdateValidatiion,
+    userUpdateValidation,
 }
