@@ -13,6 +13,7 @@ const photoSchema = new Schema({
     timestamps: true
 });
 
-const  Photo = mongoose.model('Photo', photoSchema);
+// const  Photo = mongoose.model('Photo', photoSchema);
+Photo = mongoose.model("Photo", photoSchema);
 
 module.exports = Photo;

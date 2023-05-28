@@ -3,7 +3,7 @@ const path = require('path');
 
 //Destination to storage image
 const imagesStore = multer.diskStorage({
-    destination:function(req, file, cd) {
+    destination:(req, file, cd) => {
         let folder = '';
         if(req.baseUrl.includes('users')) { //se a url que a imagem está sendo inserida tiver user
             folder = 'users';
@@ -13,6 +13,7 @@ const imagesStore = multer.diskStorage({
         cd(null, `uploads/${folder}/`)
     },
     filename: (req, file, cd) => {
+       
         cd(null, Date.now() + path.extname(file.originalname)); //Criando o nome do arquivo
     }
 });
@@ -21,13 +22,18 @@ const imagesStore = multer.diskStorage({
 const imageUpload = multer({
     storage: imagesStore,
     fileFilter(req, file, cd) {
-        if(!file.originalname.match(/\.(png|jpg)$)/)) {
-            
+       
+        if(!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
             //upload only png and jpg formats
             return cd(new Error("Por favor, envie somente png ou jpg!"));
         }    
         cd (undefined, true);
     }
 });
+
+
+const teste = () => {
+    console.log('estou ak caralho')
+}
 
 module.exports = { imageUpload }
