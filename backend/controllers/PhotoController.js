@@ -41,6 +41,7 @@ const deletePhoto = async(req,res) => {
     // Checar se foto pertence ao usuário
     if(!photo.userId.equals(reqUser._id)) {
         res.status(422).json({ errors: ['Ocorreu um erro por favor tente mais tarde.']});
+        return;
     }
 
     await Photo.findByIdAndDelete(photo._id);
@@ -52,6 +53,14 @@ const deletePhoto = async(req,res) => {
     }
 }   
 
-module.exports = { insertPhoto, deletePhoto };
+// Pegar todas as fotos
+const getAllPhotos = async(req, res) => {
+    const photos = await Photo.find({}).sort([['createdAt',-1]]).exec();
+    
+    return res.status(200).json(photos);
+}
+
+ 
+module.exports = { insertPhoto, deletePhoto, getAllPhotos };
 
 
