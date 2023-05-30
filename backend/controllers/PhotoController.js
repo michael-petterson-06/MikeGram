@@ -56,11 +56,17 @@ const deletePhoto = async(req,res) => {
 // Pegar todas as fotos
 const getAllPhotos = async(req, res) => {
     const photos = await Photo.find({}).sort([['createdAt',-1]]).exec();
-    
+    return res.status(200).json(photos);
+}
+
+//Pegar fotos de um determinado usuário
+const getUserPhotos = async(req, res) => {
+    const { id } = req.params;
+    const photos = await Photo.find({userId: id}).sort([['createdAt', -1]]).exec();
     return res.status(200).json(photos);
 }
 
  
-module.exports = { insertPhoto, deletePhoto, getAllPhotos };
+module.exports = { insertPhoto, deletePhoto, getAllPhotos, getUserPhotos };
 
 
