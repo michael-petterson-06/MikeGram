@@ -151,6 +151,24 @@ const commentPhoto = async(req, res) => {
     })
 }
 
+//Buscar fotos
+const searchPhotos = async(req, res) => {
+
+    const { q } = req.query;
+    console.log(q)
+    const photos = await Photo.find({title: new RegExp(q, 'i')}).exec();
+    
+    res.status(200).json(photos);
+    
+}
+
+    
+  
+    
+  
+    
+  
+
  
 module.exports = { 
     insertPhoto,
@@ -161,6 +179,7 @@ module.exports = {
     updatePhoto,
     likePhotos,
     commentPhoto,
+    searchPhotos,
  };
 
 
