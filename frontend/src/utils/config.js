@@ -19,6 +19,7 @@ export const requestConfig = (method, data, token = null, image = null) => {
         config = {
             method,
             body: JSON.stringify(data),
+            
             headers:{'content-Type': 'application/json'},
         }
     }
@@ -26,6 +27,6 @@ export const requestConfig = (method, data, token = null, image = null) => {
     if(token) {
         config.headers.Authorization = `Bearer ${token}`
     }
-
+    
     return config;
 }

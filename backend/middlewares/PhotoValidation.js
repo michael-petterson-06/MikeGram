@@ -15,7 +15,7 @@ const photoInsertValidation = () => {
 }
 
 const photoUpdateValidation = () => {
-    console.log('oue esta havendo')
+    
     return [
         body('title').optional().isString()
             .withMessage('O título é obrigatório.')
