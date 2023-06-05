@@ -11,14 +11,14 @@ const handleSubmit = (e) => {
 
 const Register = () => {
     return (
-        <div>
-            <h2>ReactGram</h2>
+        <div id='register'>
+            <h2>MikeGram</h2>
             <p className="subtitle">Cadastra-se para ver as fotos dos seus amigos</p>
             <form onSubmit={handleSubmit}>
                 <input type="text" placeholder='Nome'/>
                 <input type="email" placeholder='E-mail'/>
                 <input type="password" placeholder='Senha'/>
-                <input type="password" placeholder='confirme a senha'/>
+                <input type="password" placeholder='Confirme a senha'/>
                 <input type="submit" value='Cadastrar'/>
             </form>
             <p>
