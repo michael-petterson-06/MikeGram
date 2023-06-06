@@ -10,19 +10,15 @@ const initialState = {
   loading: false,
 };
 
-
-
 //Registrar e logan usuário
 export const register = createAsyncThunk('auth/register',
     async(user, thunkAPI)  => {
         const data = await authService.register(user);
-        console.log(data)
         //Verificar erros
         if(data.errors) {
-          console.log('ThunkAPI')
+        
             return thunkAPI.rejectWithValue(data.errors[0]);
         }
-        console.log('sem erros')
         return data;
 });
 
