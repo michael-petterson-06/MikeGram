@@ -12,6 +12,8 @@ import Login from './pages/Auth/Login';
 //Componentes
 import NavBar from './components/navbar/NavBar';
 import Footer from './components/footer/Footer';
+import { Profiler } from 'react';
+import EditProfile from './pages/editProfile/EditeProfile';
 
 
 
@@ -29,6 +31,7 @@ function App() {
         <div className="container">
           <Routes>
             <Route path='/' element={auth ? <Home/> : <Navigate to='/login'/>}/>
+            <Route path='/profile' element={auth ? <EditProfile/> : <Navigate to='/login'/>}/>
             <Route path='/login' element={!auth ? <Login/> : <Navigate to='/'/>} />
             <Route path='/register' element={!auth ? <Register/> : <Navigate to='/'/>}/>
           </Routes>
