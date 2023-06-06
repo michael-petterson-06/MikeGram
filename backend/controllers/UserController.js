@@ -40,6 +40,7 @@ const register = async(req, res) => {
         res.status(422).json({errors: ['Houve um erro por favor tente mais tarde.']});
         return;
     }
+ 
     
     res.status(201).json({
         _id: newUser._id,
