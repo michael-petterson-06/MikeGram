@@ -8,22 +8,38 @@ import Message from '../../components/message/Message';
 import { useEffect, useState } from 'react';
 import {useSelector, useDispatch } from 'react-redux';
 //Redux
+import { login, reset }  from '../../slices/AuthSlice';
+
 
  
 const Login = () => {
 
     const [email, setEmail] = useState('');
-    const [passWord, setPassWord] = useState('');
+    const [password, setPassWord] = useState('');
+
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.auth);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const user = {
+            email,
+            password,
+        }
+        console.log(user)
+        dispatch(login(user));
     }
+
+    useEffect(() => {
+        dispatch(reset())
+    }, [dispatch]);
     
     return (
         <div id='login'>
             <h2>MikeGram</h2>
             <p className="subtitle">Faça o login para ver oque há de novo.</p>
-            <form submit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
+                        
                 <input
                     type="text"
                     placeholder='E-mail'
@@ -31,12 +47,14 @@ const Login = () => {
                     value={email || ''}
                 />
                 <input
-                    type="passwortd"
+                    type="password"
                     placeholder='senha'
                     onChange={(e) => setPassWord(e.target.value)}
-                    value={passWord || ''}
+                    value={password || ''}
                 />
-                <input type="submit" value='Entrar'/>
+                {!loading && <input type="submit" value="Entrar" />}
+                {loading && <input type="submit" disabled value="Aguarde..." />}
+                {error && <Message msg={error} type="error" />}
             </form>
             <p>
                 Não tem conta? <Link to='/register'> Clique aqui</Link>
