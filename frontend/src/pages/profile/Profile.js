@@ -12,11 +12,12 @@ import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 //Hooks
 import { useState, useEffect, useRef } from 'react';
 import{ useSelector, useDispatch } from 'react-redux';
+
 import { useParams } from 'react-router-dom';
 
 //Redux
 import { getUserDetails } from '../../slices/userSlice';
-
+import { publishPhoto, resetMessage } from '../../slices/PhotoSlice';
 
 const Profile = () => {
 
@@ -32,15 +33,51 @@ const Profile = () => {
     const newPhotoForm = useRef();
     const editPhotoForm = useRef();
 
-
-
     //Carregar usuário
     useEffect(() => {
         dispatch(getUserDetails(id));
     },[dispatch, id]);
 
+    const {
+        photos,
+        loading: loadingPhoto,
+        error: errorPhoto,
+        message: messagePhoto,
+      } = useSelector((state) => state.photo);
+    
+
+    const [title, setTitle] = useState('');
+    const [image, setImage] = useState('');
+
+    const handleFile = (e) => {
+       
+        const image = e.target.files[0];
+        setImage(image);
+       
+    }
+
+
     const submitHandle = (e) => {
         e.preventDefault();
+        const photoData = {
+            title,
+            image,
+        }
+
+        const formData = new FormData();
+
+        const photoFormData = Object.keys(photoData).forEach((key) => 
+            formData.append(key, photoData[key])
+        );
+
+        formData.append('photo', photoFormData);
+
+        dispatch(publishPhoto(formData));
+        setTitle('');
+
+        setTimeout(() => {
+            dispatch(resetMessage());
+        }, 2000);
     }
 
     if(loading) {
@@ -65,15 +102,23 @@ const Profile = () => {
                         <form onSubmit={submitHandle}>
                             <label>
                                 <span>Título para foto:</span>
-                                <input type="text" placeholder='Insira um título'/>
+                                <input
+                                     type="text"
+                                     placeholder='Insira um título'
+                                     onChange={(e) => setTitle(e.target.value)}
+                                     value={title || ''}
+                                />
                             </label>
                             <label>
                                 <span>Imagem:</span>
-                                <input type="file"/>
+                                <input type="file" onChange={handleFile}/>
                             </label>
-                            <input type="submit" value='Postar'/>
+                            {!loadingPhoto && <input type="submit" value='Postar'/>}
+                            {loadingPhoto && <input type="submit" disable value='Aguarde...'/>}
                         </form>
                     </div>
+                    {errorPhoto && <Message msg={errorPhoto} type='error'/>}
+                    {messagePhoto && <Message msg={messagePhoto} type='success'/>}
                 </>
             )}
         </div>
