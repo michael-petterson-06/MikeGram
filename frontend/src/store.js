@@ -8,6 +8,6 @@ export const store = configureStore({
     reducer:{
         auth: authReducer,
         user: userReducer,
-        photoReducer,
+        photo: photoReducer,
     },
 });
