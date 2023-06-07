@@ -16,12 +16,8 @@ const publishPhoto = async(data, token) => {
 
 }
 
-
-
-
-
-
-
-const photoService = {};
+const photoService = {
+    publishPhoto,
+};
 
 export default photoService;
