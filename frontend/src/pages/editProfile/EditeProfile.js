@@ -5,7 +5,7 @@ import {useEffect, useState } from 'react';
 import {useSelector, useDispatch } from 'react-redux';
 
 //Redux
-import {profile, resetMessage } from '../../slices/userSlice';
+import {profile, resetMessage, updateProfile } from '../../slices/userSlice';
 
 //Componentes
 import Message from '../../components/message/Message';
@@ -33,39 +33,73 @@ const EditProfile = () => {
         if(user){
             setName(user.name);
             setEmail(user.email);
-            setPassword(user.password);
+            setBio(user.bio);
         }
     },[user]);
 
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
 
-    }
+        //Pegando os states e colocando em um objeto
+        const userData = {
+            name,
+        }
+
+        if (profileImage) {
+            userData.profileImage = profileImage;
+        }
+
+        if(bio) {
+            userData.bio = bio;
+        }
+        if(password){
+            userData.password =  password;
+        }
+
+        //Construindo formulário com os dados
+       const formData = new FormData();
+       const userFormData = Object.keys(userData).forEach((key) =>
+        formData.append(key, userData[key]));
+     
+        //Criando um objeto com nome userFormData.
+        formData.append('user', userFormData);
+        
+        await dispatch(updateProfile(formData));
+        
+        
+        setTimeout(() => {
+            dispatch(resetMessage());
+          }, 2000);
+
+        
+    };
 
     const handleFile = (e) => {
         //Imagem do preview
         const image = e.target.files[0];
         setPreviewImage(image);
-
+        
         //Atualizar state da image
         setProfileImage(image);
+        console.log(`${uploads}/users/${user.profileImage}`)
     }
+    
     return (
         <div id='edit-profile'>
             <h2>Edite seus dados</h2>
             <p className="subtitle">Adicione uma imagem de perfil e conte mais sobre voce...</p>
             {(user.profileImage || previewImage) && (
-            <img
-            className="profile-image"
-            src={
-                previewImage
-                ? URL.createObjectURL(previewImage)
-                : `${uploads}/users/${user.profileImage}`
-            }
-            alt={user.name}
-        />
-      )}
+                <img
+                className="profile-image"
+                src={
+                    previewImage
+                    ? URL.createObjectURL(previewImage)
+                    : `${uploads}/users/${user.profileImage}`
+                }
+                alt={user.name}
+                />
+            )}
             <form onSubmit={handleSubmit}>
                 <input type="text"
                         placeholder='Nome'
@@ -86,10 +120,13 @@ const EditProfile = () => {
                 <label>
                     <span>Quer alterar sua senha?</span>
                     <input type="password"
-                    palceholder='Digite sua nova senha'
+                    placeholder='Digite sua nova senha...'
                     onChange={(e) => setPassword(e.target.value)} value={password || ''}/>
                 </label>
-                <input type="submit" value='Atualizar' />
+                {!loading && <input type="submit" value="Atualizar" />}
+                {loading && <input type="submit" disabled value="Aguarde..." />}
+                {error && <Message msg={error} type="error" />}
+                {message && <Message msg={message} type="success"/>}
             </form>
         </div>
     )
