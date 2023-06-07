@@ -1,5 +1,5 @@
 import './EditProfile.css';
-import { upload } from '../../utils/config';
+import { uploads } from '../../utils/config';
 //Hooks
 import {useEffect, useState } from 'react';
 import {useSelector, useDispatch } from 'react-redux';
@@ -37,17 +37,35 @@ const EditProfile = () => {
         }
     },[user]);
 
-    console.log(user)
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
+    }
+
+    const handleFile = (e) => {
+        //Imagem do preview
+        const image = e.target.files[0];
+        setPreviewImage(image);
+
+        //Atualizar state da image
+        setProfileImage(image);
     }
     return (
         <div id='edit-profile'>
             <h2>Edite seus dados</h2>
             <p className="subtitle">Adicione uma imagem de perfil e conte mais sobre voce...</p>
-            {/*preview da imagem*/}
+            {(user.profileImage || previewImage) && (
+            <img
+            className="profile-image"
+            src={
+                previewImage
+                ? URL.createObjectURL(previewImage)
+                : `${uploads}/users/${user.profileImage}`
+            }
+            alt={user.name}
+        />
+      )}
             <form onSubmit={handleSubmit}>
                 <input type="text"
                         placeholder='Nome'
@@ -57,7 +75,7 @@ const EditProfile = () => {
                 <input type="email" placeholder='E-mail' disabled value={email || ''} />
                 <label>
                     <span>Imagem de Perfil:</span>
-                    <input type="file"/>
+                    <input type="file" onChange={handleFile}/>
                 </label>
                 <label>
                     <span>Bio:</span>
