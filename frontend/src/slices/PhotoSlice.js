@@ -24,7 +24,7 @@ export const publishPhoto = createAsyncThunk(
 )
 
 //Resgatando fotos de um usuário
-export const getUserPhootos = createAsyncThunk(
+export const getUserPhotos = createAsyncThunk(
     'photo/userPhotos',
     async(id, thunkAPI) => {
         const token = thunkAPI.getState().auth.user.token;
@@ -62,11 +62,11 @@ export const photoSlice = createSlice({
             state.error = action.payload;
             state.photo = {};
         })
-        .addCase(getUserPhootos.pending, (state) => {
+        .addCase(getUserPhotos.pending, (state) => {
             state.loading = true;
             state.error = null;
           })
-          .addCase(getUserPhootos.fulfilled, (state, action) => {
+          .addCase(getUserPhotos.fulfilled, (state, action) => {
             state.loading = false;
             state.success = true;
             state.error = null;
