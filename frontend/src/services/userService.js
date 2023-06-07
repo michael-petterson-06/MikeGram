@@ -16,7 +16,6 @@ const profile = async(data, token) => {
 //Atualizar detalhes do usuário
 const updateProfile = async(data, token) => {
     const config = requestConfig("PUT", data, token, true)
-
     try {
         const res = await fetch(api + '/users/', config)
                         .then((res) => res.json())
