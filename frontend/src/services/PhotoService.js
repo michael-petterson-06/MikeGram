@@ -21,6 +21,7 @@ const getUserPhotos = async(id, token) => {
         const res = await fetch(api + '/photos/user/'+id, config)
                             .then((res) => res.json())
                             .catch((error) => error)
+                            console.log(res)
         return res;                               
     } catch(err) {
         console.log(err);
