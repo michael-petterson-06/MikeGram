@@ -23,18 +23,25 @@ const Profile = () => {
     const  { id } = useParams();
     const dispatch = useDispatch();
     
-    //Perifl do usuário que eu quero xeretar
+    //Perifl usuário pelo ID
     const { user, loading } = useSelector((state) => state.user);
-    //Pegar dados do usuário que está logado
+    //Pegar usuário pela autênticação
     const {user: userAuth}  = useSelector((state) => state.auth) ;
 
-    //Foto
+    //Novo formulário e editar formulário de referência
+    const newPhotoForm = useRef();
+    const editPhotoForm = useRef();
+
 
 
     //Carregar usuário
     useEffect(() => {
         dispatch(getUserDetails(id));
     },[dispatch, id]);
+
+    const submitHandle = (e) => {
+        e.preventDefault();
+    }
 
     if(loading) {
         return <p>Carregando...</p>
@@ -51,6 +58,24 @@ const Profile = () => {
                     <p>{user.bio}</p>
                 </div>
             </div>
+            {id === userAuth._id && (
+                <>
+                    <div className='new-photo' ref={newPhotoForm}>
+                        <h3>Compartilhe algum momento seu:</h3>
+                        <form onSubmit={submitHandle}>
+                            <label>
+                                <span>Título para foto:</span>
+                                <input type="text" placeholder='Insira um título'/>
+                            </label>
+                            <label>
+                                <span>Imagem:</span>
+                                <input type="file"/>
+                            </label>
+                            <input type="submit" value='Postar'/>
+                        </form>
+                    </div>
+                </>
+            )}
         </div>
     )
 }
