@@ -96,7 +96,7 @@ export const comment = createAsyncThunk(
     if (data.errors) {
       return thunkAPI.rejectWithValue(data.errors[0]);
     }
-
+    
     return data;
   }
 );

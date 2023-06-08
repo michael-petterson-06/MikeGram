@@ -62,8 +62,7 @@ const getPhoto = async(id, token) => {
         const res = await fetch(api + '/photos/' + id, config)
                         .then((res)=> res.json())
                         .catch((err) => err);
-                        console.log(res)
-        return res;                    
+       return res;                    
     } catch (error) {
         console.log(error);
     };
@@ -99,6 +98,21 @@ const comment = async (data, id, token) => {
     }
 };
 
+// Pegar todas as fotos
+const getPhotos = async () => {
+    const config = requestConfig("GET");
+  
+    try {
+      const res = await fetch(api + "/photos", config)
+        .then((res) => res.json())
+        .catch((err) => err);
+  
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 const photoService = {
     publishPhoto,
     getUserPhotos,
@@ -107,6 +121,7 @@ const photoService = {
     getPhoto,
     like,
     comment,
+    getPhotos
 };
 
 export default photoService;
