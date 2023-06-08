@@ -77,6 +77,21 @@ const like = async (id, token) => {
       const res = await fetch(api + "/photos/like/" + id, config)
         .then((res) => res.json())
         .catch((err) => err);
+        
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+};
+
+// Adicionar um comentário na Foto
+const comment = async (data, id, token) => {
+    const config = requestConfig("PUT", data, token);
+  
+    try {
+      const res = await fetch(api + "/photos/comment/" + id, config)
+        .then((res) => res.json())
+        .catch((err) => err);
   
       return res;
     } catch (error) {
@@ -91,6 +106,7 @@ const photoService = {
     updatePhoto,
     getPhoto,
     like,
+    comment,
 };
 
 export default photoService;
