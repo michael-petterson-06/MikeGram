@@ -13,7 +13,7 @@ import Profile from './pages/profile/Profile';
 //Componentes
 import NavBar from './components/navbar/NavBar';
 import Footer from './components/footer/Footer';
-
+import Photo from "./pages/photo/Photo";
 
 import EditProfile from './pages/editProfile/EditeProfile';
 
@@ -37,7 +37,9 @@ function App() {
             <Route path='/users/:id' element={auth ? <Profile/> : <Navigate to='/login'/>}/>
             <Route path='/login' element={!auth ? <Login/> : <Navigate to='/'/>} />
             <Route path='/register' element={!auth ? <Register/> : <Navigate to='/'/>}/>
+            <Route path="photos/:id" element={auth ? <Photo /> : <Navigate to='/login'/>} />
           </Routes>
+          
         </div>
         <Footer/>
       </BrowserRouter>
