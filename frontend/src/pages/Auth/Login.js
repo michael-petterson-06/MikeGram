@@ -53,7 +53,7 @@ const Login = () => {
                     value={password || ''}
                 />
                 {!loading && <input type="submit" value="Entrar" />}
-                {loading && <input type="submit" disabled value="Aguarde..." />}
+                {loading && <input type="submit" disabled='true' value="Aguarde..." />}
                 {error && <Message msg={error} type="error" />}
             </form>
             <p>
