@@ -54,11 +54,43 @@ const updatePhoto = async(data, id, token) => {
     };
 };
 
+//Foto pelo id
+const getPhoto = async(id, token) => {
+    const config = requestConfig("GET", null, token);
+   
+    try {
+        const res = await fetch(api + '/photos/' + id, config)
+                        .then((res)=> res.json())
+                        .catch((err) => err);
+                        console.log(res)
+        return res;                    
+    } catch (error) {
+        console.log(error);
+    };
+};
+
+// Like na Foto
+const like = async (id, token) => {
+    const config = requestConfig("PUT", null, token);
+  
+    try {
+      const res = await fetch(api + "/photos/like/" + id, config)
+        .then((res) => res.json())
+        .catch((err) => err);
+  
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+};
+
 const photoService = {
     publishPhoto,
     getUserPhotos,
     deletePhoto,
     updatePhoto,
+    getPhoto,
+    like,
 };
 
 export default photoService;
