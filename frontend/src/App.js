@@ -37,7 +37,7 @@ function App() {
             <Route path='/users/:id' element={auth ? <Profile/> : <Navigate to='/login'/>}/>
             <Route path='/login' element={!auth ? <Login/> : <Navigate to='/'/>} />
             <Route path='/register' element={!auth ? <Register/> : <Navigate to='/'/>}/>
-            <Route path="photos/:id" element={auth ? <Photo /> : <Navigate to='/login'/>} />
+            <Route path="/photos/:id" element={auth ? <Photo /> : <Navigate to='/login'/>} />
           </Routes>
           
         </div>

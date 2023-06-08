@@ -55,12 +55,14 @@ const updatePhoto = async(data, id, token) => {
 };
 
 //Foto pelo id
-const getPhoto =async(id) => {
-    const config = requestConfig("GET");
+const getPhoto = async(id, token) => {
+    const config = requestConfig("GET", null, token);
+   
     try {
-        const res = await fetch(api + '/photos/' + id, config)      
-                            .then((res)=> res.json())
-                            .catch((err) => err);
+        const res = await fetch(api + '/photos/' + id, config)
+                        .then((res)=> res.json())
+                        .catch((err) => err);
+                        console.log(res)
         return res;                    
     } catch (error) {
         console.log(error);
