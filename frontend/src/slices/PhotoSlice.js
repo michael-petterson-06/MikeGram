@@ -96,24 +96,28 @@ export const photoSlice = createSlice({
             state.error = null;
             state.photos = action.payload;
           })
-          .addCase(deletePhoto.pending, (state) => {
+          .addCase(updatePhoto.pending, (state) => {
             state.loading = true;
             state.error = null;
           })
-          .addCase(deletePhoto.fulfilled, (state, action) => {
+          .addCase(updatePhoto.fulfilled, (state, action) => {
             state.loading = false;
             state.success = true;
             state.error = null;
-            state.photos = state.photos.filter((photo) => {
-                return photo._id !== action.payload.id;
+            state.photos.map((photo) => {
+                if(photo._id === action.payload.id) {
+                    return photo.title =action.payload.photo.title;
+                }
+                return photo;
             });
             state.message = action.payload.message;
           })
-          .addCase(deletePhoto.rejected, (state, action) => {
+          .addCase(updatePhoto.rejected, (state, action) => {
               state.loading = false;
               state.error = action.payload;
               state.photo = {};
           })
+          
     }
 });
 
