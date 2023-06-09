@@ -147,6 +147,26 @@ export const photoSlice = createSlice({
             state.error = null;
             state.photos = action.payload;
           })
+          .addCase(deletePhoto.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addCase(deletePhoto.fulfilled, (state, action) => {
+            state.loading = false;
+            state.success = true;
+            state.error = null;
+    
+            state.photos = state.photos.filter((photo) => {
+              return photo._id !== action.payload.id;
+            });
+    
+            state.message = action.payload.message;
+          })
+          .addCase(deletePhoto.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+            state.photo = null;
+          })
           .addCase(updatePhoto.pending, (state) => {
             state.loading = true;
             state.error = null;

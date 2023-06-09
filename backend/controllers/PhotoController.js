@@ -118,7 +118,7 @@ const likePhotos = async (req, res) => {
     //Colocar id do ususário no array
     photo.likes.push(reqUser._id);
     photo.save();
-    res.status(200).json({photo: id, userId: reqUser._id, message: 'A foto foi curtida.'})
+    res.status(200).json({ photoId: id, userId: reqUser._id, message: "A foto foi curtida." })
 }
 
 //Comentar a foto

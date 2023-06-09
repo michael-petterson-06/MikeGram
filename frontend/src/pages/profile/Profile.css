@@ -56,5 +56,9 @@
 .edit-photo img {
     width: 100%;
     margin-bottom: 1em;
+}
 
+.photo .btn {
+    display: inline-block;
+    margin-bottom: 40px;
 }
