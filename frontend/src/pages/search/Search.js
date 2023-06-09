@@ -1,7 +1,6 @@
 import "./Search.css";
 
 // // hooks
-// import { useQuery } from "../../hooks/useQuery";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useResetComponentMessage } from "../../hooks/UseResetComponentMessage";
@@ -16,8 +15,8 @@ import { Link } from "react-router-dom";
 import { searchPhotos, like } from "../../slices/PhotoSlice";
 
 const Search = () => {
-  // const query = useQuery();
-  // const search = query.get("q");
+  const query = useQuery();
+  const search = query.get("q");
 
   const dispatch = useDispatch();
 
@@ -26,10 +25,10 @@ const Search = () => {
   const { user } = useSelector((state) => state.auth);
   const { photos, loading } = useSelector((state) => state.photo);
 
-  // Load all photos
-  // useEffect(() => {
-  //   dispatch(searchPhotos(search));
-  // }, [dispatch, search]);
+  //Carregando buscas
+  useEffect(() => {
+    dispatch(searchPhotos(search));
+  }, [dispatch, search]);
 
   const handleLike = (photo = null) => {
     dispatch(like(photo._id));
@@ -43,8 +42,8 @@ const Search = () => {
 
   return (
     <div id="search">
-      {/* <h2>Você está buscando por: {search}</h2> */}
-      {/* {photos &&
+      <h2>Você está buscando por: {search}</h2>
+       {photos &&
         photos.map((photo) => (
           <div key={photo._id}>
             <PhotoItem photo={photo} />
@@ -53,9 +52,8 @@ const Search = () => {
               Ver mais
             </Link>
           </div>
-        ))} */}
-        <h1>Search</h1>
-    </div>
+        ))}
+   </div>
   );
 };
 
