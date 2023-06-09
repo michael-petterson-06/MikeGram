@@ -5,6 +5,7 @@ import "./Search.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useResetComponentMessage } from "../../hooks/UseResetComponentMessage";
+import { useQuery } from "../../hooks/UseQuery";
 
 // components
 import LikeContainer from "../../components/likeContainer/LikeContainer";
@@ -43,7 +44,7 @@ const Search = () => {
   return (
     <div id="search">
       {/* <h2>Você está buscando por: {search}</h2> */}
-      {photos &&
+      {/* {photos &&
         photos.map((photo) => (
           <div key={photo._id}>
             <PhotoItem photo={photo} />
@@ -52,7 +53,8 @@ const Search = () => {
               Ver mais
             </Link>
           </div>
-        ))}
+        ))} */}
+        <h1>Search</h1>
     </div>
   );
 };

@@ -32,6 +32,7 @@ function App() {
       <BrowserRouter>
         <NavBar/>
         <div className="container">
+          
           <Routes>
             <Route path='/' element={auth ? <Home/> : <Navigate to='/login'/>}/>
             <Route path='/profile'  element={auth ? <EditProfile/> : <Navigate to='/login'/>}/>
