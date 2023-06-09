@@ -38,20 +38,23 @@ const NavBar = () => {
         e.preventDefault();
     
         if (query) {
+          setQuery('');  
           return navigate(`/search?q=${query}`);
         }
+        
     };
-    
+
     return (
         <nav id="nav">
             <Link to='/'>MikeGram</Link>
             <form id="search-form" onSubmit={handleSearch}>
                 <BsSearch />
                 <input
-                type="text"
-                placeholder="Pesquisar"
-                onChange={(e) => setQuery(e.target.value)}
-             />
+                    type="text"
+                    placeholder="Pesquisar"
+                    onChange={(e) => setQuery(e.target.value)}
+                    value={query}
+               />
             </form>
             <ul id="nav-links">
                 {auth ? (
