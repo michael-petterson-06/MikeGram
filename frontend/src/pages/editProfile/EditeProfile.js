@@ -106,7 +106,7 @@ const EditProfile = () => {
                         onChange={(e) => setName(e.target.value)}
                         value={name || ''}
                 />
-                <input type="email" placeholder='E-mail' disabled='true' value={email || ''} />
+                <input type="email" placeholder='E-mail' disabled={true} value={email || ''} />
                 <label>
                     <span>Imagem de Perfil:</span>
                     <input type="file" onChange={handleFile}/>
@@ -124,7 +124,7 @@ const EditProfile = () => {
                     onChange={(e) => setPassword(e.target.value)} value={password || ''}/>
                 </label>
                 {!loading && <input type="submit" value="Atualizar" />}
-                {loading && <input type="submit" disabled='true' value="Aguarde..." />}
+                {loading && <input type="submit" disabled={true} value="Aguarde..." />}
                 {error && <Message msg={error} type="error" />}
                 {message && <Message msg={message} type="success"/>}
             </form>

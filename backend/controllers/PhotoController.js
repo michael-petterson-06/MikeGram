@@ -118,7 +118,7 @@ const likePhotos = async (req, res) => {
     //Colocar id do ususário no array
     photo.likes.push(reqUser._id);
     photo.save();
-    res.status(200).json({photo: id, userId: reqUser._id, message: 'A foto foi curtida.'})
+    res.status(200).json({ photoId: id, userId: reqUser._id, message: "A foto foi curtida." })
 }
 
 //Comentar a foto
@@ -155,7 +155,7 @@ const commentPhoto = async(req, res) => {
 const searchPhotos = async(req, res) => {
 
     const { q } = req.query;
-    console.log(q)
+   
     const photos = await Photo.find({title: new RegExp(q, 'i')}).exec();
     
     res.status(200).json(photos);

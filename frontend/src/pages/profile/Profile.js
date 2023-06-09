@@ -194,7 +194,7 @@ const Profile = () => {
                                    src={`${uploads}/photos/${photo.image}`}
                                     alt={photo.title}
                                />)}
-                         {id === userAuth._id ? (
+                            {id === userAuth._id ? (
                             <div className="actions">
                                 <Link to={`/photos/${photo._id}`}>
                                     <BsFillEyeFill/>
@@ -202,8 +202,8 @@ const Profile = () => {
                                 <BsPencilFill onClick={() => handleEdit(photo)} />
                                 <BsXLg onClick={() => handleDelete(photo._id)}/>
                             </div>
-                         ) :
-                         (<Link className='btn' to={`/photos/${photo._id}`}>Ver</Link>)}      
+                            ) :
+                            (<Link className='btn' to={`/photos/${photo._id}`}>Ver</Link>)}      
                         </div>
                     ))}
                     {photos.length === 0 && <p>Ainda não há fotos publicada</p>}

@@ -1,4 +1,5 @@
 import React from 'react';
+import "./Photo.css";
 import { uploads } from "../../utils/config";
 // Componentes
 import LikeContainer from '../../components/likeContainer/LikeContainer';

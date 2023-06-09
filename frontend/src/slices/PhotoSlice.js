@@ -96,10 +96,18 @@ export const comment = createAsyncThunk(
     if (data.errors) {
       return thunkAPI.rejectWithValue(data.errors[0]);
     }
-
+    
     return data;
   }
 );
+
+// Pegar todas as fotos
+export const getPhotos = createAsyncThunk("photo/getall", async (_, thunkAPI) => {
+  const token = thunkAPI.getState().auth.user.token;
+  const data = await photoService.getPhotos(token);
+
+  return data;
+});
 
 export const photoSlice = createSlice({
 
@@ -138,6 +146,26 @@ export const photoSlice = createSlice({
             state.success = true;
             state.error = null;
             state.photos = action.payload;
+          })
+          .addCase(deletePhoto.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addCase(deletePhoto.fulfilled, (state, action) => {
+            state.loading = false;
+            state.success = true;
+            state.error = null;
+    
+            state.photos = state.photos.filter((photo) => {
+              return photo._id !== action.payload.id;
+            });
+    
+            state.message = action.payload.message;
+          })
+          .addCase(deletePhoto.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+            state.photo = null;
           })
           .addCase(updatePhoto.pending, (state) => {
             state.loading = true;
@@ -202,6 +230,17 @@ export const photoSlice = createSlice({
           .addCase(comment.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
+          })
+          .addCase(getPhotos.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addCase(getPhotos.fulfilled, (state, action) => {
+            console.log(action.payload);
+            state.loading = false;
+            state.success = true;
+            state.error = null;
+            state.photos = action.payload;
           })
     }
 });
